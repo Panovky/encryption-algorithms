@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Алгоритмы шифрования</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="main.css" rel="stylesheet">
+</head>
+<body class="bg-dark vh-100 d-flex flex-column justify-content-center">
+
+<div class="d-flex mb-5 justify-content-center">
+    <button type="button" class="me-4 btn btn-warning">Шифр Цезаря</button>
+    <button type="button" class="ms-4 btn btn-outline-warning">Алгоритм RSA</button>
+</div>
+
+<div class="d-flex my-5 justify-content-center">
+    <input type="text" placeholder="Ключ" class="bg-dark border-warning border-2 rounded text-warning">
+</div>
+
+<div class="d-flex justify-content-around">
+    <div class="d-flex flex-column">
+        <p class="text-warning text-center">Исходный текст</p>
+        <textarea cols="50" rows="20" class="bg-dark text-warning border-warning border-2 rounded"></textarea>
+        <button type="button" class="mt-3 btn btn-outline-warning">Зашифровать</button>
+    </div>
+    <div class="d-flex flex-column">
+        <p class="text-warning text-center">Зашифрованный текст</p>
+        <textarea cols="50" rows="20" class="bg-dark text-warning border-warning border-2 rounded"></textarea>
+        <button type="button" class="mt-3 btn btn-outline-warning">Дешифровать</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+textarea, input {
+    caret-color: #ffc107;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
