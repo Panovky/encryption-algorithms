@@ -1,3 +1,7 @@
+#caesar-cipher-key-invalid-warning, #caesar-cipher-key-empty-warning, #caesar-cipher-source-text-invalid-warning, #caesar-cipher-encrypted-text-invalid-warning, #caesar-cipher-source-text-empty-warning, #caesar-cipher-encrypted-text-empty-warning, #rsa-algorithm-content {
+    display: none;
+}
+
 textarea, input {
     caret-color: #ffc107;
 }
@@ -8,4 +12,8 @@ textarea:focus, input:focus {
 
 textarea {
     resize: none;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
 }
