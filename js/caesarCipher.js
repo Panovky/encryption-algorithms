@@ -1,4 +1,4 @@
-import {caesarCipherContent} from './main.js'
+import {caesarCipherContent, showWarning} from './main.js'
 
 let keyInput = caesarCipherContent.getElementsByTagName("input")[0];
 let keyInvalidWarning = document.getElementById("caesar-cipher-key-invalid-warning");
@@ -16,34 +16,6 @@ const russianUpperCaseLetterRegex = /^[А-Я]|Ё$/;
 const russianLowerCaseLetterRegex = /^[а-я]|ё$/;
 const russianUpperCaseAlphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 const russianLowerCaseAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-
-function showKeyInvalidWarning() {
-    keyInvalidWarning.style.display = "block";
-    setTimeout(() => {
-        keyInvalidWarning.style.display = "none";
-    }, 2000);
-}
-
-function showKeyEmptyWarning() {
-    keyEmptyWarning.style.display = "block";
-    setTimeout(() => {
-        keyEmptyWarning.style.display = "none";
-    }, 2000);
-}
-
-function showSourceTextEmptyWarning() {
-    sourceTextEmptyWarning.style.display = "block";
-    setTimeout(() => {
-        sourceTextEmptyWarning.style.display = "none";
-    }, 2000);
-}
-
-function showEncryptedTextEmptyWarning() {
-    encryptedTextEmptyWarning.style.display = "block";
-    setTimeout(() => {
-        encryptedTextEmptyWarning.style.display = "none";
-    }, 2000);
-}
 
 function getEncryptedText(key, sourceText) {
     let sourceTextSymbol;
@@ -96,18 +68,18 @@ function getSourceText(key, encryptedText) {
 encryptBtn.addEventListener("click", () => {
 
     let key = keyInput.value;
-    if (key.trim() == "") {
-        showKeyEmptyWarning();
+    if (key.trim() === "") {
+        showWarning(keyEmptyWarning);
         return;
     }
     if (!keyRegex.test(key)) {
-        showKeyInvalidWarning();
+        showWarning(keyInvalidWarning);
         return;
     }
 
     let sourceText = sourceTextTextarea.value;
-    if (sourceText.trim() == "") {
-        showSourceTextEmptyWarning();
+    if (sourceText.trim() === "") {
+        showWarning(sourceTextEmptyWarning);
         return;
     }
 
@@ -117,18 +89,18 @@ encryptBtn.addEventListener("click", () => {
 decryptBtn.addEventListener("click", () => {
 
     let key = keyInput.value;
-    if (key.trim() == "") {
-        showKeyEmptyWarning();
+    if (key.trim() === "") {
+        showWarning(keyEmptyWarning);
         return;
     }
     if (!keyRegex.test(key)) {
-        showKeyInvalidWarning();
+        showWarning(keyInvalidWarning);
         return;
     }
 
     let encryptedText = encryptedTextTextarea.value;
-    if (encryptedText.trim() == "") {
-        showEncryptedTextEmptyWarning();
+    if (encryptedText.trim() === "") {
+        showWarning(encryptedTextEmptyWarning);
         return;
     }
 
@@ -138,8 +110,8 @@ decryptBtn.addEventListener("click", () => {
 bruteForceDecryptBtn.addEventListener("click", () => {
 
     let encryptedText = encryptedTextTextarea.value;
-    if (encryptedText.trim() == "") {
-        showEncryptedTextEmptyWarning();
+    if (encryptedText.trim() === "") {
+        showWarning(encryptedTextEmptyWarning);
         return;
     }
 
