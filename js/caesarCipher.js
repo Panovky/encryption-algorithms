@@ -1,4 +1,5 @@
-import {caesarCipherContent} from './main.js'
+import {caesarCipherContent, showWarning} from './main.js'
+
 let keyInput = caesarCipherContent.getElementsByTagName("input")[0];
 let keyInvalidWarning = document.getElementById("caesar-cipher-key-invalid-warning");
 let keyEmptyWarning = document.getElementById("caesar-cipher-key-empty-warning");
@@ -7,59 +8,14 @@ let decryptBtn = caesarCipherContent.getElementsByTagName("button")[1];
 let bruteForceDecryptBtn = caesarCipherContent.getElementsByTagName("button")[2];
 let sourceTextTextarea = caesarCipherContent.getElementsByTagName("textarea")[0];
 let encryptedTextTextarea = caesarCipherContent.getElementsByTagName("textarea")[1];
-let sourceTextInvalidWarning = document.getElementById("caesar-cipher-source-text-invalid-warning");
-let encryptedTextInvalidWarning = document.getElementById("caesar-cipher-encrypted-text-invalid-warning");
 let sourceTextEmptyWarning = document.getElementById("caesar-cipher-source-text-empty-warning");
 let encryptedTextEmptyWarning = document.getElementById("caesar-cipher-encrypted-text-empty-warning");
 
 const keyRegex = /^(?:[1-9]|1[0-9]|2[0-9]|3[0-2])$/;
-const englishLetterRegex = /[a-zA-Z]/;
 const russianUpperCaseLetterRegex = /^[А-Я]|Ё$/;
 const russianLowerCaseLetterRegex = /^[а-я]|ё$/;
 const russianUpperCaseAlphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 const russianLowerCaseAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-
-function showKeyInvalidWarning() {
-    keyInvalidWarning.style.display = "block";
-    setTimeout(() => {
-        keyInvalidWarning.style.display = "none";
-    }, 2000);
-}
-
-function showKeyEmptyWarning() {
-    keyEmptyWarning.style.display = "block";
-    setTimeout(() => {
-        keyEmptyWarning.style.display = "none";
-    }, 2000);
-}
-
-function showSourceTextInvalidWarning() {
-    sourceTextInvalidWarning.style.display = "block";
-    setTimeout(() => {
-        sourceTextInvalidWarning.style.display = "none";
-    }, 2000);
-}
-
-function showSourceTextEmptyWarning() {
-    sourceTextEmptyWarning.style.display = "block";
-    setTimeout(() => {
-        sourceTextEmptyWarning.style.display = "none";
-    }, 2000);
-}
-
-function showEncryptedTextInvalidWarning() {
-    encryptedTextInvalidWarning.style.display = "block";
-    setTimeout(() => {
-        encryptedTextInvalidWarning.style.display = "none";
-    }, 2000);
-}
-
-function showEncryptedTextEmptyWarning() {
-    encryptedTextEmptyWarning.style.display = "block";
-    setTimeout(() => {
-        encryptedTextEmptyWarning.style.display = "none";
-    }, 2000);
-}
 
 function getEncryptedText(key, sourceText) {
     let sourceTextSymbol;
@@ -91,13 +47,13 @@ function getSourceText(key, encryptedText) {
         encryptedTextSymbol = encryptedText.charAt(i);
         if (russianUpperCaseLetterRegex.test(encryptedTextSymbol)) {
             index = (russianUpperCaseAlphabet.indexOf(encryptedTextSymbol) - key);
-            if (index < 0 ) {
+            if (index < 0) {
                 index = 33 + index;
             }
             sourceText += russianUpperCaseAlphabet.charAt(index);
         } else if (russianLowerCaseLetterRegex.test(encryptedTextSymbol)) {
             index = (russianLowerCaseAlphabet.indexOf(encryptedTextSymbol) - key);
-            if (index < 0 ) {
+            if (index < 0) {
                 index = 33 + index;
             }
             sourceText += russianLowerCaseAlphabet.charAt(index);
@@ -112,26 +68,18 @@ function getSourceText(key, encryptedText) {
 encryptBtn.addEventListener("click", () => {
 
     let key = keyInput.value;
-
-    if (key.trim() == "") {
-        showKeyEmptyWarning();
+    if (key.trim() === "") {
+        showWarning(keyEmptyWarning);
         return;
     }
-
     if (!keyRegex.test(key)) {
-        showKeyInvalidWarning();
+        showWarning(keyInvalidWarning);
         return;
     }
 
     let sourceText = sourceTextTextarea.value;
-
-    if (sourceText.trim() == "") {
-        showSourceTextEmptyWarning();
-        return;
-    }
-
-    if (englishLetterRegex.test(sourceText)) {
-        showSourceTextInvalidWarning();
+    if (sourceText.trim() === "") {
+        showWarning(sourceTextEmptyWarning);
         return;
     }
 
@@ -141,26 +89,18 @@ encryptBtn.addEventListener("click", () => {
 decryptBtn.addEventListener("click", () => {
 
     let key = keyInput.value;
-
-    if (key.trim() == "") {
-        showKeyEmptyWarning();
+    if (key.trim() === "") {
+        showWarning(keyEmptyWarning);
         return;
     }
-
     if (!keyRegex.test(key)) {
-        showKeyInvalidWarning();
+        showWarning(keyInvalidWarning);
         return;
     }
 
     let encryptedText = encryptedTextTextarea.value;
-
-    if (encryptedText.trim() == "") {
-        showEncryptedTextEmptyWarning();
-        return;
-    }
-
-    if (englishLetterRegex.test(encryptedText)) {
-        showEncryptedTextInvalidWarning();
+    if (encryptedText.trim() === "") {
+        showWarning(encryptedTextEmptyWarning);
         return;
     }
 
@@ -170,19 +110,13 @@ decryptBtn.addEventListener("click", () => {
 bruteForceDecryptBtn.addEventListener("click", () => {
 
     let encryptedText = encryptedTextTextarea.value;
-
-    if (encryptedText.trim() == "") {
-        showEncryptedTextEmptyWarning();
-        return;
-    }
-
-    if (englishLetterRegex.test(encryptedText)) {
-        showEncryptedTextInvalidWarning();
+    if (encryptedText.trim() === "") {
+        showWarning(encryptedTextEmptyWarning);
         return;
     }
 
     sourceTextTextarea.value = "";
-    for (let key = 1;  key < 33; key ++) {
+    for (let key = 1; key < 33; key++) {
         sourceTextTextarea.value += `Ключ ${key}:\n` + getSourceText(key, encryptedText);
         if (key < 32) {
             sourceTextTextarea.value += "\n\n";

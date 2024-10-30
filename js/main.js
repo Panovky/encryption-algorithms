@@ -1,5 +1,13 @@
 export let caesarCipherContent = document.getElementById("caesar-cipher-content");
-let rsaAlgorithmContent = document.getElementById("rsa-algorithm-content");
+export let rsaAlgorithmContent = document.getElementById("rsa-algorithm-content");
+
+export function showWarning(warning) {
+    warning.style.display = "block";
+    setTimeout(() => {
+        warning.style.display = "none";
+    }, 10000);
+}
+
 let chooseCaesarCipherBtn = document.getElementById("choose-caesar-cipher-btn");
 let chooseRsaAlgorithmBtn = document.getElementById("choose-rsa-algorithm-btn");
 
