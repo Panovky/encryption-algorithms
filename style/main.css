@@ -1,0 +1,15 @@
+#caesar-cipher-key-invalid-warning, #caesar-cipher-key-empty-warning, #caesar-cipher-source-text-empty-warning, #caesar-cipher-encrypted-text-empty-warning {
+    display: none;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
