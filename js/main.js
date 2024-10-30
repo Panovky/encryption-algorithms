@@ -1,6 +1,13 @@
 export let caesarCipherContent = document.getElementById("caesar-cipher-content");
 export let rsaAlgorithmContent = document.getElementById("rsa-algorithm-content");
 
+export function showWarning(warning) {
+    warning.style.display = "block";
+    setTimeout(() => {
+        warning.style.display = "none";
+    }, 10000);
+}
+
 let chooseCaesarCipherBtn = document.getElementById("choose-caesar-cipher-btn");
 let chooseRsaAlgorithmBtn = document.getElementById("choose-rsa-algorithm-btn");
 
@@ -14,7 +21,6 @@ chooseCaesarCipherBtn.addEventListener("click", () => {
 });
 
 chooseRsaAlgorithmBtn.addEventListener("click", () => {
-    console.log(1);
     if (chooseRsaAlgorithmBtn.classList.contains("btn-outline-warning")) {
         chooseRsaAlgorithmBtn.classList.replace("btn-outline-warning", "btn-warning");
         chooseCaesarCipherBtn.classList.replace("btn-warning", "btn-outline-warning");
