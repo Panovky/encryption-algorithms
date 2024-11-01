@@ -23,33 +23,22 @@ function getRandomNumber(min, max) {
 
 // возвращает наибольший общий делитель чисел a и b
 function gcd(a, b) {
-    let buffer;
+    if (a < b) {
+        [b, a] = [a, b];
+    }
     while (b !== 0) {
-        buffer = b;
-        b = a % b;
-        a = buffer;
+        [b, a] = [a % b, b];
     }
     return a;
 }
 
 // возвращает коэффициенты x и y в расширенном алгоритме евклида
 function gcdExtended(a, b) {
-    let q, r;
-    let x1 = 0, x2 = 1, y1 = 1, y2 = 0;
-    let x, y;
-    while (b > 0) {
-        q = Math.floor(a / b);
-        r = a - q * b;
-        x = x2 - q * x1;
-        y = y2 - q * y1;
-        a = b;
-        b = r;
-        x2 = x1;
-        x1 = x;
-        y2 = y1;
-        y1 = y;
+    if (b === 0) {
+        return [1, 0];
     }
-    return [x2, y2];
+    let [x, y] = gcdExtended(b, a % b);
+    return [y, x - y * Math.floor(a / b)]
 }
 
 function moduloExponentiation(base, exponent, modulus) {
@@ -72,18 +61,18 @@ function moduloExponentiation(base, exponent, modulus) {
     return Number(result);
 }
 
-function generatePublicKey(phi, n) {
+function generatePublicKey(n, phi) {
     while (1) {
         e = getRandomNumber(1, n - 1);
-        if (gcd(e, phi) == 1) {
+        if (gcd(e, phi) === 1) {
             break;
         }
     }
 }
 
-function generateSecretKey(phi, e) {
-    let [x2, y2] = gcdExtended(phi, e)
-    d = phi - Math.abs(Math.min(x2, y2));
+function generateSecretKey(e, phi) {
+    let x = gcdExtended(e, phi)[0];
+    d = x < 0 ? x + phi : x;
 }
 
 function getEncryptedText(sourceText) {
@@ -108,15 +97,14 @@ function getSourceText(encryptedText) {
         c = Number(encryptedTextSymbol);
         t = moduloExponentiation(c, d, n);
         sourceText += String.fromCharCode(t);
-        console.log(t);
     });
 
     return sourceText;
 }
 
-generateKeysBtn.addEventListener("click", (p, q) => {
-    generatePublicKey(phi, n);
-    generateSecretKey(phi, e);
+generateKeysBtn.addEventListener("click", () => {
+    generatePublicKey(n, phi);
+    generateSecretKey(e, phi);
     publicKeyInput.value = `{${e}, ${n}}`;
     secretKeyInput.value = `{${d}, ${n}}`;
 });

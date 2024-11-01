@@ -5,7 +5,7 @@ export function showWarning(warning) {
     warning.style.display = "block";
     setTimeout(() => {
         warning.style.display = "none";
-    }, 10000);
+    }, 2000);
 }
 
 let chooseCaesarCipherBtn = document.getElementById("choose-caesar-cipher-btn");
