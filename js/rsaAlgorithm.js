@@ -1,4 +1,4 @@
-import {rsaAlgorithmContent, showWarning} from './main.js'
+import {rsaAlgorithmContent, showWarning, getRandomNumber} from './main.js'
 
 let generateKeysBtn = rsaAlgorithmContent.getElementsByTagName("button")[0];
 let encryptBtn = rsaAlgorithmContent.getElementsByTagName("button")[1];
@@ -15,11 +15,6 @@ const p = 151, q = 179;
 const n = p * q;
 const phi = (p - 1) * (q - 1);
 let e, d;
-
-// возвращает случайное целое число от min (включительно) до max (включительно)
-function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-}
 
 // возвращает наибольший общий делитель чисел a и b
 function gcd(a, b) {
